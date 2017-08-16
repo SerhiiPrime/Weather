@@ -15,7 +15,7 @@ enum RealmConfig {
     
     private static var copyInitialFile: Void = {
         FileManager.copyInitialData(
-            Bundle.main.url(forResource: "default_v1.0", withExtension: "realm")!,
+            Bundle.main.url(forResource: "initial_data_v1.0", withExtension: "realm")!,
             to: RealmConfig.weatherConfig.fileURL!)
     }()
     
