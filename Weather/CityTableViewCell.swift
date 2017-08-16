@@ -12,4 +12,12 @@ class CityTableViewCell: UITableViewCell {
 
     @IBOutlet weak var cityNameLabel: UILabel!
 
+    func configureWith(city: City) {
+        cityNameLabel.text = city.name
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cityNameLabel.text = nil
+    }
 }

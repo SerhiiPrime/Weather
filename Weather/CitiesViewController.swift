@@ -13,21 +13,29 @@ class CitiesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    fileprivate var citiesSubscription: NotificationToken!
     fileprivate var cities: Results<City>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let realm = try! Realm(configuration: RealmConfig.weather.configuration)
-        cities = realm.objects(City.self)
+        getCities()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        tableView.reloadData()
+    
+    func getCities() {
+        cities = WeatherProvider.sharedProvider.getCities()
+        citiesSubscription = notificationSubscription(cities: cities)
     }
-
+    
+    func notificationSubscription(cities: Results<City>) -> NotificationToken {
+        return cities.addNotificationBlock {[weak self] (changes: RealmCollectionChange<Results<City>>) in
+            guard let wself = self else { return }
+            wself.tableView.reloadData()
+        }
+    }
 }
+
+
+//MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -37,8 +45,7 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(CityTableViewCell.self)
-        let city = cities[indexPath.row]
-        cell.cityNameLabel.text = city.name
+        cell.configureWith(city: cities[indexPath.row])
         return cell
     }
 }
