@@ -18,23 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
 //        let kyiv = City()
-//        kyiv.id = "1"
+//        kyiv.key = "324505"
 //        kyiv.name = "Kyiv"
+//        kyiv.region = "Kiev City, Ukraine"
 //        
 //        let dnipro = City()
-//        dnipro.id = "2"
+//        dnipro.key = "322722"
 //        dnipro.name = "Dnipro"
+//        dnipro.region = "Dnipro City, Ukraine"
 //        
-//        let odessa = City()
-//        odessa.id = "3"
-//        odessa.name = "Odessa"
 //        
 //        let config = Realm.Configuration.init(fileURL: URL.inDocumentsFolder("initial_data_v1.0.realm"))
 //        
 //        let realm = try! Realm(configuration: config)
 //        
 //        try! realm.write {
-//            realm.add([kyiv, dnipro, odessa])
+//            realm.add([kyiv, dnipro])
 //        }
 //        
 //        print(realm.configuration.fileURL!)

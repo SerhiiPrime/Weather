@@ -20,6 +20,7 @@ class AddCityViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.becomeFirstResponder()
         configureTableDataSource()
     }
     
@@ -33,15 +34,16 @@ class AddCityViewController: UIViewController {
                 
                 NetworkManager.sharedManager.getCities(query)
                     .retry(3)
-                    .startWith([]) // clears results on new search term
+                    .startWith([]) 
                     .asDriver(onErrorJustReturn: [])
         }
         
         results
-            .drive(tableView.rx.items(cellIdentifier: "CityNameTableViewCell", cellType: CityNameTableViewCell.self)) { (_, viewModel, cell) in
-                cell.textLabel?.text = "aaa"
+            .drive(tableView.rx.items(cellIdentifier: CityNameTableViewCell.reuseIdentifier,
+                                      cellType: CityNameTableViewCell.self)) { (_, element, cell) in
+                cell.textLabel?.text = element.name
+                cell.detailTextLabel?.text = element.region
             }
             .disposed(by: disposeBag)
-        
     }
 }
