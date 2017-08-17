@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 class AddCityViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -26,24 +26,35 @@ class AddCityViewController: UIViewController {
     
     func configureTableDataSource() {
         
+        // Search cities
         let results = searchBar.rx.text.orEmpty
-            .asDriver()
-            .throttle(0.3)
+            .asObservable()
+            .throttle(0.5, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .flatMapLatest { query in
                 
                 NetworkManager.sharedManager.getCities(query)
                     .retry(3)
-                    .startWith([]) 
+                    .startWith([])
                     .asDriver(onErrorJustReturn: [])
         }
         
-        results
-            .drive(tableView.rx.items(cellIdentifier: CityNameTableViewCell.reuseIdentifier,
-                                      cellType: CityNameTableViewCell.self)) { (_, element, cell) in
-                cell.textLabel?.text = element.name
-                cell.detailTextLabel?.text = element.region
+        // Populate table view
+        results.bind(to: tableView.rx.items(cellIdentifier: CityNameTableViewCell.reuseIdentifier,
+                                            cellType: CityNameTableViewCell.self)) { (_, city, cell) in
+                                                
+                                                cell.configureWith(city: city)
             }
-            .disposed(by: disposeBag)
+            .addDisposableTo(disposeBag)
+        
+        
+        // Save selected city
+        tableView.rx.modelSelected(City.self)
+            .subscribe(onNext: { [weak self] city in
+                
+                WeatherProvider.sharedProvider.saveCityToDB(city: city)
+                self?.navigationController?.popViewController(animated: true)
+            })
+            .addDisposableTo(disposeBag)
     }
 }

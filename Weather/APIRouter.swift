@@ -13,9 +13,10 @@ import Alamofire
 enum APIRouter: URLRequestConvertible {
     
     // Mdliudty1Xrtsd9CKEHZfnGgpGcqRxDG
+    // ULMcvG42cWCi7A57ToiE9MbBJvHFVUNZ
     
     private struct Constants {
-        static let APPID = "ULMcvG42cWCi7A57ToiE9MbBJvHFVUNZ"
+        static let APPID = "Mdliudty1Xrtsd9CKEHZfnGgpGcqRxDG"
         static let baseURL = "http://dataservice.accuweather.com/locations/v1"
     }
 

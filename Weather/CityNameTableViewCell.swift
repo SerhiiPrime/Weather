@@ -9,16 +9,15 @@
 import UIKit
 
 class CityNameTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    
+    func configureWith(city: City) {
+        textLabel?.text = city.name
+        detailTextLabel?.text = city.region
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        textLabel?.text = nil
+        detailTextLabel?.text = nil
     }
-
 }
