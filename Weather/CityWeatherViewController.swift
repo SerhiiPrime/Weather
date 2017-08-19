@@ -7,29 +7,55 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
+
 
 class CityWeatherViewController: UIViewController {
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
+    private let disposeBag = DisposeBag()
+    
+    var city: City!
+    var items: [Hour] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        collectionView.dataSource = self
+        
+        
+        NetworkManager.sharedManager.getHourlyWeather(city.key)
+        .retry(3)
+        .subscribe(onNext: { [weak self] hours in
+            self?.items = hours
+            self?.collectionView.reloadData()
+            
+        })
+        .addDisposableTo(disposeBag)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func swiftTimelineAction(_ sender: UISegmentedControl) {
+        
+    }
+
+}
+
+
+extension CityWeatherViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return items.count
     }
-    */
-
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourCollectionViewCell.reuseIdentifier, for: indexPath) as! HourCollectionViewCell
+        cell.configureHour(hour: items[indexPath.row])
+        return cell
+    }
 }

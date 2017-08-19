@@ -50,7 +50,8 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vs = self.storyboard?.instantiateViewController(withIdentifier: "CityWeatherViewController")
-        self.show(vs!, sender: self)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CityWeatherViewController") as! CityWeatherViewController
+        vc.city = cities[indexPath.row]
+        self.show(vc, sender: self)
     }
 }

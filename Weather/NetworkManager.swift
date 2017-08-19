@@ -12,42 +12,6 @@ import Alamofire
 import RxSwift
 
 
-enum ErrorCode: Int {
-    case noNetwork            = -1009
-    case sessionExpired       = 401
-    case clientError          = 500
-    case unknownError         = 1000
-    case unexpectedJsonValue  = 1001
-    case closeSocketByClient  = 0
-}
-
-
-struct NetworkError: Swift.Error {
-    let code: ErrorCode
-    let message: String
-    
-    init(code: ErrorCode) {
-        self.init(code: code, message: "Error")
-    }
-    
-    init(code: ErrorCode, message: String) {
-        self.code = code
-        self.message = message
-    }
-    
-    init(error: Swift.Error) {
-        
-        var code = (error as NSError).code
-        if let errorAF = error as? AFError, let errorCode = errorAF.responseCode {
-            code = errorCode
-        }
-        
-        self.code = ErrorCode(rawValue: code) ?? .unknownError
-        self.message = error.localizedDescription
-    }
-}
-
-
 class NetworkManager {
     
     static let sharedManager = NetworkManager()
@@ -62,18 +26,59 @@ class NetworkManager {
         
         return Observable<[City]>.create { (observer) -> Disposable in
             let request = self.networkManager
-                .request(APIRouter.getCities(query))
+                .request(APIRouter.getCities(query: query))
                 .logRequest()
                 .validate()
                 .responseJSON { (response) in
                     switch response.result {
                     case .success(let dict):
-                        let cities = City.citiesFrom(dict: dict)
-                        observer.onNext(cities)
+                        observer.onNext(City.citiesFrom(dict: dict))
                         observer.onCompleted()
                         
                     case .failure(let error):
-                        observer.onError(NetworkError(error: error))
+                        observer.onError(error)
+                    }
+            }
+            return Disposables.create { request.cancel() }
+        }
+    }
+    
+    func getHourlyWeather(_ cityId: String) -> Observable<[Hour]> {
+        
+        return Observable<[Hour]>.create { (observer) -> Disposable in
+            let request = self.networkManager
+                .request(APIRouter.getHourlyWeather(cityId: cityId))
+                .logRequest()
+                .validate()
+                .responseJSON { (response) in
+                    switch response.result {
+                    case .success(let dict):
+                        observer.onNext(Hour.hoursFrom(dict: dict))
+                        observer.onCompleted()
+                        
+                    case .failure(let error):
+                        observer.onError(error)
+                    }
+            }
+            return Disposables.create { request.cancel() }
+        }
+    }
+    
+    func getDailyWeather(_ cityId: String) -> Observable<[Day]> {
+        
+        return Observable<[Day]>.create { (observer) -> Disposable in
+            let request = self.networkManager
+                .request(APIRouter.getDailyWeather(cityId: cityId))
+                .logRequest()
+                .validate()
+                .responseJSON { (response) in
+                    switch response.result {
+                    case .success(let dict):
+                        observer.onNext(Day.daysFrom(dict: dict))
+                        observer.onCompleted()
+                        
+                    case .failure(let error):
+                        observer.onError(error)
                     }
             }
             return Disposables.create { request.cancel() }

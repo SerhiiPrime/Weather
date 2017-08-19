@@ -11,5 +11,6 @@ target 'Weather' do
   pod 'RxSwift',    '~> 3.0'
   pod 'RxCocoa',    '~> 3.0'
   pod 'Charts'
+  pod 'Kingfisher', '~> 3.0'
 
 end

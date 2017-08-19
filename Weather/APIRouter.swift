@@ -14,23 +14,31 @@ enum APIRouter: URLRequestConvertible {
     
     private struct Constants {
         static let key = "591ef5c5fa1dfa49"
-        static let baseURL = "http://autocomplete.wunderground.com/"
+        static let baseURL = "http://api.wunderground.com/api/"
         static let autocompleteURL = "http://autocomplete.wunderground.com/"
     }
 
     
-    case getCities(String)
+    case getCities(query: String)
+    case getHourlyWeather(cityId: String)
+    case getDailyWeather(cityId: String)
     
     var url: String{
         switch self {
         case .getCities:
             return APIRouter.Constants.autocompleteURL
+            
+        case .getHourlyWeather,
+             .getDailyWeather:
+            return APIRouter.Constants.baseURL + "/" + APIRouter.Constants.key
         }
     }
 
     var method: HTTPMethod{
         switch self {
-        case .getCities:
+        case .getCities,
+             .getHourlyWeather,
+             .getDailyWeather:
             return .get
         }
     }
@@ -39,6 +47,12 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .getCities:
             return "aq"
+            
+        case .getHourlyWeather(let cityId):
+            return "/hourly/q/zmw:\(cityId).json"
+            
+        case .getDailyWeather(let cityId):
+            return "/forecast10day/q/zmw:\(cityId).json"
         }
     }
     
@@ -46,12 +60,17 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .getCities(let query):
             return ["query": query]
+            
+        default:
+            return nil
         }
     }
     
     var encoding: ParameterEncoding {
         switch self {
-        case .getCities:
+        case .getCities,
+             .getHourlyWeather,
+             .getDailyWeather:
             return URLEncoding.default
         }
     }
