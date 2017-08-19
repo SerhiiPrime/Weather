@@ -12,21 +12,6 @@ import Alamofire
 
 enum APIRouter: URLRequestConvertible {
     
-    // Mdliudty1Xrtsd9CKEHZfnGgpGcqRxDG
-    // ULMcvG42cWCi7A57ToiE9MbBJvHFVUNZ
-    
-    //APIXU
-    //acce31c9693d48f5b27100155171908
-    
-    
-    //wunderground
-    //591ef5c5fa1dfa49
-    
-//    private struct Constants {
-//        static let APPID = "Mdliudty1Xrtsd9CKEHZfnGgpGcqRxDG"
-//        static let baseURL = "http://dataservice.accuweather.com/locations/v1"
-//    }
-
     private struct Constants {
         static let key = "591ef5c5fa1dfa49"
         static let baseURL = "http://autocomplete.wunderground.com/"

@@ -16,6 +16,9 @@ class City: Object {
     dynamic var key:      String = ""
     dynamic var name:     String = ""
     
+    let hourly = List<Hour>()
+    let dayly = List<Day>()
+    
     override class func primaryKey() -> String? {
         return #keyPath(City.key)
     }

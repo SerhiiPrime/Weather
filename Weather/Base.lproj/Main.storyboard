@@ -93,41 +93,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDd-qu-P1p">
-                                <rect key="frame" x="0.0" y="364" width="375" height="303"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="t32-fy-WTg">
+                                <rect key="frame" x="0.0" y="64" width="375" height="215"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="t32-fy-WTg">
-                                <rect key="frame" x="0.0" y="228" width="375" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4wZ-SP-tEJ">
-                                    <size key="itemSize" width="141" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="215" id="fk4-KV-BNo"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4wZ-SP-tEJ">
+                                    <size key="itemSize" width="154" height="140"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="XtT-uf-sb8">
-                                        <rect key="frame" x="0.0" y="0.0" width="141" height="128"/>
+                                        <rect key="frame" x="0.0" y="5.5" width="154" height="140"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="141" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="154" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </view>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9X-OX-cwd">
-                                <rect key="frame" x="166" y="140" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XDd-qu-P1p">
+                                <rect key="frame" x="0.0" y="336" width="375" height="331"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Twm-25-Haq">
+                                <rect key="frame" x="98" y="287" width="178" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="5tc-Fd-vvv"/>
+                                    <constraint firstAttribute="width" constant="178" id="TqQ-kG-LOF"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Hourly"/>
+                                    <segment title="Daily"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XDd-qu-P1p" secondAttribute="trailing" id="7Iy-11-Bhb"/>
+                            <constraint firstItem="XDd-qu-P1p" firstAttribute="top" secondItem="Twm-25-Haq" secondAttribute="bottom" constant="21" id="lB6-Qs-Wlp"/>
+                            <constraint firstItem="XDd-qu-P1p" firstAttribute="leading" secondItem="bqR-Nn-ww7" secondAttribute="leading" id="lFa-Bf-anA"/>
+                            <constraint firstItem="t32-fy-WTg" firstAttribute="top" secondItem="Iqe-YI-DlE" secondAttribute="bottom" id="n3e-XP-qfv"/>
+                            <constraint firstItem="Hiv-FY-gKh" firstAttribute="top" secondItem="XDd-qu-P1p" secondAttribute="bottom" id="ptk-PQ-nmU"/>
+                            <constraint firstAttribute="trailing" secondItem="t32-fy-WTg" secondAttribute="trailing" id="q0l-n9-yfl"/>
+                            <constraint firstItem="t32-fy-WTg" firstAttribute="leading" secondItem="bqR-Nn-ww7" secondAttribute="leading" id="qkX-sV-kOs"/>
+                            <constraint firstItem="Twm-25-Haq" firstAttribute="centerX" secondItem="bqR-Nn-ww7" secondAttribute="centerX" id="r7l-fj-oWS"/>
+                            <constraint firstItem="Twm-25-Haq" firstAttribute="top" secondItem="t32-fy-WTg" secondAttribute="bottom" constant="8" id="y5o-in-6QC"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ji-jL-fSi" userLabel="First Responder" sceneMemberID="firstResponder"/>
