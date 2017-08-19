@@ -28,6 +28,7 @@ class AddCityViewController: UIViewController {
         
         // Search cities
         let results = searchBar.rx.text.orEmpty
+            .skip(1)
             .asObservable()
             .throttle(0.5, scheduler: MainScheduler.instance)
             .distinctUntilChanged()

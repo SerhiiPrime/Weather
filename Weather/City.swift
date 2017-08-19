@@ -15,7 +15,6 @@ class City: Object {
     
     dynamic var key:      String = ""
     dynamic var name:     String = ""
-    dynamic var region:   String = ""
     
     override class func primaryKey() -> String? {
         return #keyPath(City.key)
@@ -27,7 +26,7 @@ extension City {
     
     static func citiesFrom(dict: Any) -> [City] {
 
-        guard let jsonArray = JSON(object: dict).array else {
+        guard let jsonArray = JSON(object: dict)["RESULTS"].array else {
             assertionFailure("Invalid JSON \(dict)")
             return []
         }
@@ -44,10 +43,8 @@ extension City {
     
     
     convenience init?(json: JSON) {
-        guard let key   = json["Key"].string,
-            let name    = json["LocalizedName"].string,
-            let area    = json["AdministrativeArea"]["LocalizedName"].string,
-            let country = json["Country"]["LocalizedName"].string
+        guard let key   = json["zmw"].string,
+            let name    = json["name"].string
             else {
                 assertionFailure("Invalid JSON \(json)")
                 return nil
@@ -55,6 +52,5 @@ extension City {
         self.init()
         self.key = key
         self.name = name
-        self.region = "\(area), \(country)"
     }
 }

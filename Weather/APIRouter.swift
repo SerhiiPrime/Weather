@@ -15,12 +15,33 @@ enum APIRouter: URLRequestConvertible {
     // Mdliudty1Xrtsd9CKEHZfnGgpGcqRxDG
     // ULMcvG42cWCi7A57ToiE9MbBJvHFVUNZ
     
+    //APIXU
+    //acce31c9693d48f5b27100155171908
+    
+    
+    //wunderground
+    //591ef5c5fa1dfa49
+    
+//    private struct Constants {
+//        static let APPID = "Mdliudty1Xrtsd9CKEHZfnGgpGcqRxDG"
+//        static let baseURL = "http://dataservice.accuweather.com/locations/v1"
+//    }
+
     private struct Constants {
-        static let APPID = "Mdliudty1Xrtsd9CKEHZfnGgpGcqRxDG"
-        static let baseURL = "http://dataservice.accuweather.com/locations/v1"
+        static let key = "591ef5c5fa1dfa49"
+        static let baseURL = "http://autocomplete.wunderground.com/"
+        static let autocompleteURL = "http://autocomplete.wunderground.com/"
     }
 
+    
     case getCities(String)
+    
+    var url: String{
+        switch self {
+        case .getCities:
+            return APIRouter.Constants.autocompleteURL
+        }
+    }
 
     var method: HTTPMethod{
         switch self {
@@ -32,14 +53,14 @@ enum APIRouter: URLRequestConvertible {
     var path: String {
         switch self {
         case .getCities:
-            return "/cities/autocomplete"
+            return "aq"
         }
     }
     
     var parameters: [String: Any]? {
         switch self {
         case .getCities(let query):
-            return ["q": query]
+            return ["query": query]
         }
     }
     
@@ -53,14 +74,11 @@ enum APIRouter: URLRequestConvertible {
     // MARK: URLRequestConvertible
     
     func asURLRequest() throws -> URLRequest {
-        let url = try APIRouter.Constants.baseURL.asURL()
+        let url = try self.url.asURL()
         
         var urlRequest = URLRequest(url: url.appendingPathComponent(path))
         urlRequest.httpMethod = method.rawValue
-        
-        var paramsWithId = parameters ?? [:]
-        paramsWithId["apikey"] = APIRouter.Constants.APPID
-        
-        return try encoding.encode(urlRequest, with: paramsWithId)
+
+        return try encoding.encode(urlRequest, with: parameters)
     }
 }

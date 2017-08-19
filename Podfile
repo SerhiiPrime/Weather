@@ -10,5 +10,6 @@ target 'Weather' do
   pod 'SwiftyJSON'
   pod 'RxSwift',    '~> 3.0'
   pod 'RxCocoa',    '~> 3.0'
+  pod 'Charts'
 
 end

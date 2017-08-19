@@ -12,12 +12,10 @@ class CityNameTableViewCell: UITableViewCell {
     
     func configureWith(city: City) {
         textLabel?.text = city.name
-        detailTextLabel?.text = city.region
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         textLabel?.text = nil
-        detailTextLabel?.text = nil
     }
 }

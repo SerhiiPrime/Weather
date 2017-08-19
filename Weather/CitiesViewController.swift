@@ -48,4 +48,9 @@ extension CitiesViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configureWith(city: cities[indexPath.row])
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vs = self.storyboard?.instantiateViewController(withIdentifier: "CityWeatherViewController")
+        self.show(vs!, sender: self)
+    }
 }

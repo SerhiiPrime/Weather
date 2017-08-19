@@ -63,6 +63,7 @@ class NetworkManager {
         return Observable<[City]>.create { (observer) -> Disposable in
             let request = self.networkManager
                 .request(APIRouter.getCities(query))
+                .logRequest()
                 .validate()
                 .responseJSON { (response) in
                     switch response.result {
