@@ -31,6 +31,7 @@ class CityWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = viewModel.cityName
+        lineChartView.delegate = self
         subscribeHourly()
     }
     
@@ -43,6 +44,7 @@ class CityWeatherViewController: UIViewController {
         
         viewModel.hoursChartDataDriver
             .drive(onNext: { [weak self] data in
+                self?.lineChartView.xAxis.valueFormatter = HourXAxisFormatter()
                 self?.lineChartView.data = data
             })
             .disposed(by: hourlyDisposeBag)
@@ -57,6 +59,7 @@ class CityWeatherViewController: UIViewController {
         
         viewModel.daysChartDataDriver
             .drive(onNext: { [weak self] data in
+                self?.lineChartView.xAxis.valueFormatter = DayXAxisFormatter()
                 self?.lineChartView.data = data
             })
             .disposed(by: daylyDisposeBag)
@@ -73,4 +76,21 @@ class CityWeatherViewController: UIViewController {
         }
     }
 }
+
+
+extension CityWeatherViewController: ChartViewDelegate {
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        if let dataSet = chartView.data?.dataSets[ highlight.dataSetIndex] {
+            
+            let sliceIndex: Int = dataSet.entryIndex( entry: entry)
+            print( "Selected slice index: \( sliceIndex)")
+            
+            collectionView.scrollToItem(at:IndexPath(item: sliceIndex, section: 0), at: .right, animated: true)
+        }
+    }
+}
+
+
+
 

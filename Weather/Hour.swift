@@ -13,11 +13,10 @@ import SwiftyJSON
 class Hour: Object {
     
     dynamic var temperature: Int = 0
-    dynamic var hour: Int = 0
-    dynamic var day: Int = 0
+
+    dynamic var date: Date!
     
-    dynamic var prettyName: String = ""
-    dynamic var iconUrl: String = ""
+    dynamic var iconUrl:   String = ""
     dynamic var condition: String = ""
 }
 
@@ -52,9 +51,15 @@ extension Hour {
             
             let dayStr      = json["FCTTIME"]["mday"].string,
             let day         = Int(dayStr),
+            
+            let monthStr    = json["FCTTIME"]["mon"].string,
+            let month       = Int(monthStr),
+            
+            let yearStr     = json["FCTTIME"]["year"].string,
+            let year        = Int(yearStr),
         
-            let prettyHour  = json["FCTTIME"]["civil"].string,
-            let prettyDay   = json["FCTTIME"]["weekday_name"].string,
+            let date        = Date.dateFrom(hour: hour, day: day, month: month, year: year),
+            
             let iconUrl     = json["icon_url"].string,
             let condition   = json["wx"].string
             else {
@@ -63,9 +68,7 @@ extension Hour {
         }
         self.init()
         self.temperature    = temp
-        self.hour           = hour
-        self.day            = day
-        self.prettyName     = "\(prettyHour), \(prettyDay)"
+        self.date           = date
         self.iconUrl        = iconUrl
         self.condition      = condition
     }

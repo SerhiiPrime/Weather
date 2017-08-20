@@ -35,6 +35,9 @@
 		14B1E3881F446CD80015E055 /* AddCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B1E3871F446CD80015E055 /* AddCityViewController.swift */; };
 		14B1E38A1F446DEB0015E055 /* CityNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B1E3891F446DEB0015E055 /* CityNameTableViewCell.swift */; };
 		14B1E38C1F4505F90015E055 /* initial_data_v1.0.realm in Resources */ = {isa = PBXBuildFile; fileRef = 14B1E38B1F4505970015E055 /* initial_data_v1.0.realm */; };
+		14C6B81A1F4A0FD30063DC3A /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C6B8191F4A0FD30063DC3A /* Date+Extension.swift */; };
+		14C6B81C1F4A19740063DC3A /* DayXAxisFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C6B81B1F4A19740063DC3A /* DayXAxisFormatter.swift */; };
+		14C6B81E1F4A1C0C0063DC3A /* HourXAxisFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C6B81D1F4A1C0C0063DC3A /* HourXAxisFormatter.swift */; };
 		CA72D11CB032F9619785151C /* Pods_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C613831155A0F02D97EDED34 /* Pods_Weather.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +72,9 @@
 		14B1E3871F446CD80015E055 /* AddCityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCityViewController.swift; sourceTree = "<group>"; };
 		14B1E3891F446DEB0015E055 /* CityNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityNameTableViewCell.swift; sourceTree = "<group>"; };
 		14B1E38B1F4505970015E055 /* initial_data_v1.0.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = initial_data_v1.0.realm; sourceTree = "<group>"; };
+		14C6B8191F4A0FD30063DC3A /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		14C6B81B1F4A19740063DC3A /* DayXAxisFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayXAxisFormatter.swift; sourceTree = "<group>"; };
+		14C6B81D1F4A1C0C0063DC3A /* HourXAxisFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourXAxisFormatter.swift; sourceTree = "<group>"; };
 		5B50C9CD1D6DBE2ABC84D165 /* Pods-Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weather/Pods-Weather.release.xcconfig"; sourceTree = "<group>"; };
 		C613831155A0F02D97EDED34 /* Pods_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF8CB21F627C21B355E73DC1 /* Pods-Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weather/Pods-Weather.debug.xcconfig"; sourceTree = "<group>"; };
@@ -200,6 +206,9 @@
 				14B1E37E1F437FE30015E055 /* FileManager+Extension.swift */,
 				144648901F4845B400055075 /* Request.swift */,
 				145012F01F49A56900D4B544 /* ReachabilityStatus.swift */,
+				14C6B8191F4A0FD30063DC3A /* Date+Extension.swift */,
+				14C6B81B1F4A19740063DC3A /* DayXAxisFormatter.swift */,
+				14C6B81D1F4A1C0C0063DC3A /* HourXAxisFormatter.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -347,11 +356,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14C6B81C1F4A19740063DC3A /* DayXAxisFormatter.swift in Sources */,
 				14B1E36E1F436E6D0015E055 /* RealmConfig.swift in Sources */,
 				14B1E3751F4374AA0015E055 /* ReusableView.swift in Sources */,
 				14B1E36B1F436E350015E055 /* NetworkManager.swift in Sources */,
 				14B1E38A1F446DEB0015E055 /* CityNameTableViewCell.swift in Sources */,
 				145012ED1F489C0900D4B544 /* DayCollectionViewCell.swift in Sources */,
+				14C6B81A1F4A0FD30063DC3A /* Date+Extension.swift in Sources */,
 				145012EB1F489BF600D4B544 /* HourCollectionViewCell.swift in Sources */,
 				14B1E3731F4374670015E055 /* UITableView+Extension.swift in Sources */,
 				14B1E3831F444CFD0015E055 /* WeatherProvider.swift in Sources */,
@@ -365,6 +376,7 @@
 				14B1E3771F4374DE0015E055 /* Cell+Extension.swift in Sources */,
 				14B1E37F1F437FE30015E055 /* FileManager+Extension.swift in Sources */,
 				14B1E3611F436D030015E055 /* CityWeatherViewController.swift in Sources */,
+				14C6B81E1F4A1C0C0063DC3A /* HourXAxisFormatter.swift in Sources */,
 				14B1E3701F43718C0015E055 /* CityTableViewCell.swift in Sources */,
 				144648951F4884B000055075 /* Day.swift in Sources */,
 				144648931F487FA200055075 /* Hour.swift in Sources */,

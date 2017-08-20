@@ -15,12 +15,11 @@ class Day: Object {
     dynamic var maxTemp: Int = 0
     dynamic var minTemp: Int = 0
 
-    dynamic var day:    Int = 0
-    dynamic var month:  Int = 0
+    dynamic var date: Date!
     
     dynamic var prettyName: String = ""
-    dynamic var iconUrl: String = ""
-    dynamic var condition: String = ""
+    dynamic var iconUrl:    String = ""
+    dynamic var condition:  String = ""
 }
 
 
@@ -54,9 +53,9 @@ extension Day {
             
             let day         = json["date"]["day"].int,
             let month       = json["date"]["month"].int,
+            let year        = json["date"]["year"].int,
+            let date        = Date.dateFrom(day: day, month: month, year: year),
 
-            let prettyDay   = json["date"]["weekday"].string,
-            let prettyMonth = json["date"]["monthname_short"].string,
             let iconUrl     = json["icon_url"].string,
             let condition   = json["conditions"].string
             else {
@@ -66,9 +65,7 @@ extension Day {
         self.init()
         self.maxTemp    = maxTemp
         self.minTemp    = minTemp
-        self.day        = day
-        self.month      = month
-        self.prettyName = "\(prettyDay), \(day) \(prettyMonth)"
+        self.date       = date
         self.iconUrl    = iconUrl
         self.condition  = condition
     }

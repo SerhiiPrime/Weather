@@ -51,27 +51,27 @@ final class CityWeatherViewModel {
     func loadHourlyData() {
         hours.value = Array(city.hourly)
         
-        NetworkManager.sharedManager.getHourlyWeather(city.key)
-            .retry(3)
-            .subscribe(onNext: { [weak self] hours in
-                guard let wself = self else { return }
-                wself.hours.value = hours
-                WeatherProvider.sharedProvider.saveHoursToDB(hours: hours, forCity: wself.city)
-            })
-            .addDisposableTo(disposeBag)
+//        NetworkManager.sharedManager.getHourlyWeather(city.key)
+//            .retry(3)
+//            .subscribe(onNext: { [weak self] hours in
+//                guard let wself = self else { return }
+//                wself.hours.value = hours
+//                WeatherProvider.sharedProvider.saveHoursToDB(hours: hours, forCity: wself.city)
+//            })
+//            .addDisposableTo(disposeBag)
     }
     
     func loadDaylyData() {
         days.value = Array(city.dayly)
         
-        NetworkManager.sharedManager.getDailyWeather(city.key)
-            .retry(3)
-            .subscribe(onNext: { [weak self] days in
-                guard let wself = self else { return }
-                wself.days.value = days
-                WeatherProvider.sharedProvider.saveDaysToDB(days: days, forCity: wself.city)
-            })
-            .addDisposableTo(disposeBag)
+//        NetworkManager.sharedManager.getDailyWeather(city.key)
+//            .retry(3)
+//            .subscribe(onNext: { [weak self] days in
+//                guard let wself = self else { return }
+//                wself.days.value = days
+//                WeatherProvider.sharedProvider.saveDaysToDB(days: days, forCity: wself.city)
+//            })
+//            .addDisposableTo(disposeBag)
     }
     
     func subscribeChart() {
@@ -91,45 +91,38 @@ final class CityWeatherViewModel {
     }
     
     func hoursLineChartData() -> LineChartData {
-        var lineChartEntry  = [ChartDataEntry]() //this is the Array that will eventually be displayed on the graph.
+        var lineChartEntry  = [ChartDataEntry]()
         
         
         for i in 0..<hours.value.count {
             
-            let value = ChartDataEntry(x: Double(hours.value[i].hour), y: Double(hours.value[i].temperature)) // here we set the X and Y status in a data chart entry
-            
-            lineChartEntry.append(value) // here we add it to the data set
+            let value = ChartDataEntry(x: Double(hours.value[i].date.timeIntervalSince1970), y: Double(hours.value[i].temperature))
+            lineChartEntry.append(value)
         }
         
-        let line1 = LineChartDataSet(values: lineChartEntry, label: "Temperature") //Here we convert lineChartEntry to a LineChartDataSet
+        let line1 = LineChartDataSet(values: lineChartEntry, label: "Temperature")
+        line1.colors = [NSUIColor.blue]
         
-        line1.colors = [NSUIColor.blue] //Sets the colour to blue
-        
-        let data = LineChartData() //This is the object that will be added to the chart
-        
-        data.addDataSet(line1) //Adds the line to the dataSet
+        let data = LineChartData()
+        data.addDataSet(line1)
         
         return data
     }
     
     func daysLineChartData() -> LineChartData {
-        var lineChartEntry  = [ChartDataEntry]() //this is the Array that will eventually be displayed on the graph.
-        
+        var lineChartEntry  = [ChartDataEntry]() 
         
         for i in 0..<days.value.count {
             
-            let value = ChartDataEntry(x: Double(days.value[i].day), y: Double(days.value[i].maxTemp)) // here we set the X and Y status in a data chart entry
-            
-            lineChartEntry.append(value) // here we add it to the data set
+            let value = ChartDataEntry(x: Double(days.value[i].date.timeIntervalSince1970), y: Double(days.value[i].maxTemp))
+            lineChartEntry.append(value)
         }
         
-        let line1 = LineChartDataSet(values: lineChartEntry, label: "Temperature") //Here we convert lineChartEntry to a LineChartDataSet
+        let line1 = LineChartDataSet(values: lineChartEntry, label: "Temperature")
+        line1.colors = [NSUIColor.blue]
         
-        line1.colors = [NSUIColor.blue] //Sets the colour to blue
-        
-        let data = LineChartData() //This is the object that will be added to the chart
-        
-        data.addDataSet(line1) //Adds the line to the dataSet
+        let data = LineChartData()
+        data.addDataSet(line1)
         
         return data
     }
