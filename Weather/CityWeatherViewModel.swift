@@ -91,17 +91,12 @@ final class CityWeatherViewModel {
     }
     
     func hoursLineChartData() -> LineChartData {
-        var lineChartEntry  = [ChartDataEntry]()
-        
-        
-        for i in 0..<hours.value.count {
-            
-            let value = ChartDataEntry(x: Double(hours.value[i].date.timeIntervalSince1970), y: Double(hours.value[i].temperature))
-            lineChartEntry.append(value)
+        let lineChartEntry  = hours.value.map {
+            ChartDataEntry(x: Double($0.date.timeIntervalSince1970), y: Double($0.temperature))
         }
-        
+
         let line1 = LineChartDataSet(values: lineChartEntry, label: "Temperature")
-        line1.colors = [NSUIColor.blue]
+        line1.colors = [NSUIColor.orange]
         
         let data = LineChartData()
         data.addDataSet(line1)
@@ -110,19 +105,23 @@ final class CityWeatherViewModel {
     }
     
     func daysLineChartData() -> LineChartData {
-        var lineChartEntry  = [ChartDataEntry]() 
+        var dayLineChartEntry  = [ChartDataEntry]()
+        var nightLineChartEntry  = [ChartDataEntry]()
         
         for i in 0..<days.value.count {
-            
-            let value = ChartDataEntry(x: Double(days.value[i].date.timeIntervalSince1970), y: Double(days.value[i].maxTemp))
-            lineChartEntry.append(value)
+            dayLineChartEntry.append(ChartDataEntry(x: Double(days.value[i].date.timeIntervalSince1970), y: Double(days.value[i].maxTemp)))
+            nightLineChartEntry.append(ChartDataEntry(x: Double(days.value[i].date.timeIntervalSince1970), y: Double(days.value[i].minTemp)))
         }
         
-        let line1 = LineChartDataSet(values: lineChartEntry, label: "Temperature")
-        line1.colors = [NSUIColor.blue]
+        let line1 = LineChartDataSet(values: dayLineChartEntry, label: "Day")
+        line1.colors = [NSUIColor.red]
+        
+        let line2 = LineChartDataSet(values: nightLineChartEntry, label: "Night")
+        line2.colors = [NSUIColor.blue]
         
         let data = LineChartData()
         data.addDataSet(line1)
+        data.addDataSet(line2)
         
         return data
     }
