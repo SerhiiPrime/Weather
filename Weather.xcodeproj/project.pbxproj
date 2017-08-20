@@ -12,6 +12,8 @@
 		144648951F4884B000055075 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144648941F4884AF00055075 /* Day.swift */; };
 		145012EB1F489BF600D4B544 /* HourCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145012EA1F489BF600D4B544 /* HourCollectionViewCell.swift */; };
 		145012ED1F489C0900D4B544 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145012EC1F489C0900D4B544 /* DayCollectionViewCell.swift */; };
+		145012F11F49A56900D4B544 /* ReachabilityStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145012F01F49A56900D4B544 /* ReachabilityStatus.swift */; };
+		145012F31F49A5E800D4B544 /* CityWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145012F21F49A5E800D4B544 /* CityWeatherViewModel.swift */; };
 		14B1E34D1F436A460015E055 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B1E34C1F436A460015E055 /* AppDelegate.swift */; };
 		14B1E34F1F436A460015E055 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B1E34E1F436A460015E055 /* CitiesViewController.swift */; };
 		14B1E3521F436A460015E055 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14B1E3501F436A460015E055 /* Main.storyboard */; };
@@ -42,6 +44,8 @@
 		144648941F4884AF00055075 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		145012EA1F489BF600D4B544 /* HourCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourCollectionViewCell.swift; sourceTree = "<group>"; };
 		145012EC1F489C0900D4B544 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
+		145012F01F49A56900D4B544 /* ReachabilityStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityStatus.swift; sourceTree = "<group>"; };
+		145012F21F49A5E800D4B544 /* CityWeatherViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityWeatherViewModel.swift; sourceTree = "<group>"; };
 		14B1E3491F436A460015E055 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14B1E34C1F436A460015E055 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14B1E34E1F436A460015E055 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 				14B1E34E1F436A460015E055 /* CitiesViewController.swift */,
 				14B1E3871F446CD80015E055 /* AddCityViewController.swift */,
 				14B1E3601F436D030015E055 /* CityWeatherViewController.swift */,
+				145012F21F49A5E800D4B544 /* CityWeatherViewModel.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -194,6 +199,7 @@
 				14B1E37A1F43799C0015E055 /* URL+documents.swift */,
 				14B1E37E1F437FE30015E055 /* FileManager+Extension.swift */,
 				144648901F4845B400055075 /* Request.swift */,
+				145012F01F49A56900D4B544 /* ReachabilityStatus.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -351,8 +357,10 @@
 				14B1E3831F444CFD0015E055 /* WeatherProvider.swift in Sources */,
 				144648911F4845B400055075 /* Request.swift in Sources */,
 				14B1E34F1F436A460015E055 /* CitiesViewController.swift in Sources */,
+				145012F11F49A56900D4B544 /* ReachabilityStatus.swift in Sources */,
 				14B1E37B1F43799C0015E055 /* URL+documents.swift in Sources */,
 				14B1E3881F446CD80015E055 /* AddCityViewController.swift in Sources */,
+				145012F31F49A5E800D4B544 /* CityWeatherViewModel.swift in Sources */,
 				14B1E3691F436E0C0015E055 /* APIRouter.swift in Sources */,
 				14B1E3771F4374DE0015E055 /* Cell+Extension.swift in Sources */,
 				14B1E37F1F437FE30015E055 /* FileManager+Extension.swift in Sources */,

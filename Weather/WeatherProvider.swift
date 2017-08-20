@@ -19,7 +19,7 @@ class WeatherProvider {
 }
 
 
-//MARK - Read/Wride db
+//MARK - CITY
 //
 extension WeatherProvider {
     
@@ -31,5 +31,29 @@ extension WeatherProvider {
         realmWeather.beginWrite()
         realmWeather.add(city, update: true)
         try! realmWeather.commitWrite(withoutNotifying: tokens)
+    }
+}
+
+
+//MARK - WEATHER
+//
+extension WeatherProvider {
+    
+     func saveHoursToDB(hours: [Hour], forCity city: City) {
+        realmWeather.beginWrite()
+        
+        city.hourly.removeAll()
+        city.hourly.append(objectsIn: hours)
+        
+        try! realmWeather.commitWrite()
+    }
+    
+    func saveDaysToDB(days: [Day], forCity city: City) {
+        realmWeather.beginWrite()
+        
+        city.dayly.removeAll()
+        city.dayly.append(objectsIn: days)
+        
+        try! realmWeather.commitWrite()
     }
 }

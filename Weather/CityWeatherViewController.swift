@@ -9,53 +9,68 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Charts
 
 
 class CityWeatherViewController: UIViewController {
-
+    
+    enum SegmentSelectedIndex: Int {
+        case hourly
+        case dayly
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var lineChartView: LineChartView!
     
-    private let disposeBag = DisposeBag()
+    private var hourlyDisposeBag = DisposeBag()
+    private var daylyDisposeBag = DisposeBag()
     
-    var city: City!
-    var items: [Hour] = []
+    var viewModel: CityWeatherViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.dataSource = self
+        title = viewModel.cityName
+        subscribeHourly()
+    }
+    
+    func subscribeHourly() {
+        viewModel.hoursDriver
+            .drive(self.collectionView.rx.items(cellIdentifier: HourCollectionViewCell.reuseIdentifier, cellType: HourCollectionViewCell.self)) { (_, hour, cell) in
+                cell.configureWithHour(hour: hour)
+            }
+            .disposed(by: hourlyDisposeBag)
         
+        viewModel.hoursChartDataDriver
+            .drive(onNext: { [weak self] data in
+                self?.lineChartView.data = data
+            })
+            .disposed(by: hourlyDisposeBag)
+    }
+    
+    func subscribeDayly() {
+        viewModel.daysDriver
+            .drive(self.collectionView.rx.items(cellIdentifier: DayCollectionViewCell.reuseIdentifier, cellType: DayCollectionViewCell.self)) { (_, day, cell) in
+                cell.configureWithDay(day: day)
+            }
+            .disposed(by: daylyDisposeBag)
         
-        NetworkManager.sharedManager.getHourlyWeather(city.key)
-        .retry(3)
-        .subscribe(onNext: { [weak self] hours in
-            self?.items = hours
-            self?.collectionView.reloadData()
-            
-        })
-        .addDisposableTo(disposeBag)
+        viewModel.daysChartDataDriver
+            .drive(onNext: { [weak self] data in
+                self?.lineChartView.data = data
+            })
+            .disposed(by: daylyDisposeBag)
     }
 
+    
     @IBAction func swiftTimelineAction(_ sender: UISegmentedControl) {
-        
-    }
-
-}
-
-
-extension CityWeatherViewController: UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourCollectionViewCell.reuseIdentifier, for: indexPath) as! HourCollectionViewCell
-        cell.configureHour(hour: items[indexPath.row])
-        return cell
+        if sender.selectedSegmentIndex == SegmentSelectedIndex.dayly.rawValue {
+            hourlyDisposeBag = DisposeBag()
+            subscribeDayly()
+        } else {
+            daylyDisposeBag = DisposeBag()
+            subscribeHourly()
+        }
     }
 }
+

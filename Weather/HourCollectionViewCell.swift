@@ -16,7 +16,7 @@ class HourCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var conditionLabel: UILabel!
     
-    func configureHour(hour: Hour) {
+    func configureWithHour(hour: Hour) {
         prettyDateLabel.text = hour.prettyName
         temperatureLabel.text = hour.temperature.description
         conditionLabel.text = hour.condition

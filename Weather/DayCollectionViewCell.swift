@@ -10,4 +10,12 @@ import UIKit
 
 class DayCollectionViewCell: UICollectionViewCell {
     
+    func configureWithDay(day: Day) {
+
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+    }
 }
