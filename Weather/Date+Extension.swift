@@ -12,17 +12,15 @@ extension Formatter {
     
     static let prettyDayFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .none
-        dateFormatter.doesRelativeDateFormatting = true
+        dateFormatter.dateFormat = "E MMM dd"
+        dateFormatter.doesRelativeDateFormatting = false
         return dateFormatter
     }()
     
     
     static let prettyHourFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "h a, EEEE"
         dateFormatter.doesRelativeDateFormatting = false
         return dateFormatter
     }()
@@ -38,21 +36,8 @@ extension Date {
     var prettyHourString: String {
         return Formatter.prettyHourFormatter.string(from: self)
     }
-    
-    var ticks: UInt64 {
-        return UInt64((self.timeIntervalSince1970 + 62_135_596_800) * 10_000_000)
-    }
-    
-    //TODO: DRY
-    static func dateFrom(day: Int, month: Int, year: Int) -> Date? {
-        var c = DateComponents()
-        c.day = day
-        c.month = month
-        c.year = year
-        return Calendar(identifier: .gregorian).date(from: c)
-    }
-    
-    static func dateFrom(hour: Int, day: Int, month: Int, year: Int) -> Date? {
+
+    static func dateFrom(hour: Int = 0, day: Int, month: Int, year: Int) -> Date? {
         var c = DateComponents()
         c.hour = hour
         c.day = day

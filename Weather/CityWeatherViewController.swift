@@ -78,7 +78,11 @@ class CityWeatherViewController: UIViewController {
     }
 }
 
+
+//MARK: - UICollectionViewDelegateFlowLayout
+
 extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         var cellsAcross: CGFloat = 2
@@ -95,6 +99,8 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+
+//MARK: - ChartViewDelegate
 
 extension CityWeatherViewController: ChartViewDelegate {
     

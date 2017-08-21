@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 extension DataRequest {
+    
     public func logRequest() -> Self {
         debugPrint(self)
         return self

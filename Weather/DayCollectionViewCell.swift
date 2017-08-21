@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class DayCollectionViewCell: UICollectionViewCell {
     
@@ -18,7 +19,7 @@ class DayCollectionViewCell: UICollectionViewCell {
     
     
     func configureWithDay(day: Day) {
-        dateLabel.text = day.date.prettyHourString
+        dateLabel.text = day.date.prettyDayString
         dayTempLabel.text = day.maxTemp.description
         nightTempLabel.text = day.minTemp.description
         conditionLabel.text = day.condition

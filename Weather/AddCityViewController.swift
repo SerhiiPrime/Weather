@@ -36,7 +36,6 @@ class AddCityViewController: UIViewController {
                 
                 NetworkManager.sharedManager.getCities(query)
                     .retry(3)
-                    .startWith([])
                     .asDriver(onErrorJustReturn: [])
         }
         

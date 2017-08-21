@@ -51,27 +51,27 @@ final class CityWeatherViewModel {
     func loadHourlyData() {
         hours.value = Array(city.hourly)
         
-//        NetworkManager.sharedManager.getHourlyWeather(city.key)
-//            .retry(3)
-//            .subscribe(onNext: { [weak self] hours in
-//                guard let wself = self else { return }
-//                wself.hours.value = hours
-//                WeatherProvider.sharedProvider.saveHoursToDB(hours: hours, forCity: wself.city)
-//            })
-//            .addDisposableTo(disposeBag)
+        NetworkManager.sharedManager.getHourlyWeather(city.key)
+            .retry(3)
+            .subscribe(onNext: { [weak self] hours in
+                guard let wself = self else { return }
+                wself.hours.value = hours
+                WeatherProvider.sharedProvider.saveHoursToDB(hours: hours, forCity: wself.city)
+            })
+            .addDisposableTo(disposeBag)
     }
     
     func loadDaylyData() {
         days.value = Array(city.dayly)
         
-//        NetworkManager.sharedManager.getDailyWeather(city.key)
-//            .retry(3)
-//            .subscribe(onNext: { [weak self] days in
-//                guard let wself = self else { return }
-//                wself.days.value = days
-//                WeatherProvider.sharedProvider.saveDaysToDB(days: days, forCity: wself.city)
-//            })
-//            .addDisposableTo(disposeBag)
+        NetworkManager.sharedManager.getDailyWeather(city.key)
+            .retry(3)
+            .subscribe(onNext: { [weak self] days in
+                guard let wself = self else { return }
+                wself.days.value = days
+                WeatherProvider.sharedProvider.saveDaysToDB(days: days, forCity: wself.city)
+            })
+            .addDisposableTo(disposeBag)
     }
     
     func subscribeChart() {
