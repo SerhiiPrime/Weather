@@ -32,6 +32,7 @@ class CityWeatherViewController: UIViewController {
         super.viewDidLoad()
         title = viewModel.cityName
         lineChartView.delegate = self
+        collectionView.delegate = self
         subscribeHourly()
     }
     
@@ -77,16 +78,31 @@ class CityWeatherViewController: UIViewController {
     }
 }
 
+extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        var cellsAcross: CGFloat = 2
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            cellsAcross = 3
+        }
+        let spaceBetweenCells: CGFloat = 15
+        let dim = (collectionView.frame.width - (cellsAcross - 1) * spaceBetweenCells) / cellsAcross
+        return CGSize(width: dim, height: dim)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: -64, left: 20, bottom: 0, right: 20)
+    }
+}
+
 
 extension CityWeatherViewController: ChartViewDelegate {
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         if let dataSet = chartView.data?.dataSets[ highlight.dataSetIndex] {
             
-            let sliceIndex: Int = dataSet.entryIndex( entry: entry)
-            print( "Selected slice index: \( sliceIndex)")
-            
-            collectionView.scrollToItem(at:IndexPath(item: sliceIndex, section: 0), at: .right, animated: true)
+            let index: Int = dataSet.entryIndex( entry: entry)
+            collectionView.scrollToItem(at:IndexPath(item: index, section: 0), at: .right, animated: true)
         }
     }
 }

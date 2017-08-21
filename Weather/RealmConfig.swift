@@ -26,7 +26,7 @@ enum RealmConfig {
     var configuration: Realm.Configuration {
         switch self {
         case .weather:
-            //_ = RealmConfig.copyInitialFile
+            _ = RealmConfig.copyInitialFile
             return RealmConfig.weatherConfig
         }
     }
